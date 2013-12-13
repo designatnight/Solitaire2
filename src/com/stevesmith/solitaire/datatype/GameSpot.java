@@ -1,0 +1,19 @@
+package com.stevesmith.solitaire.datatype;
+
+public enum GameSpot {
+	
+	DRAW,
+	DISCARD,
+	REGULAR_1,
+	REGULAR_2,
+	REGULAR_3,
+	REGULAR_4,
+	REGULAR_5,
+	REGULAR_6,
+	REGULAR_7,
+	RESOLUTION_HEARTS,
+	RESOLUTION_DIAMONDS,
+	RESOLUTION_SPADE,
+	RESOLUTION_CLUB;
+
+}
