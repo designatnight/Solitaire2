@@ -36,12 +36,6 @@ public class GameService {
 	
 	}
 
-	private void creatGameMap() {
-		for(GameSpot gameSpot : GameSpot.values()){
-			gameBoard.put(gameSpot, new Deck());
-		}
-	}
-	
 	public void drawCard(){
 		Deck drawDeck = gameBoard.get(GameSpot.DRAW);
 		Deck discardDeck = gameBoard.get(GameSpot.DISCARD);
@@ -57,13 +51,6 @@ public class GameService {
 			}
 			discardDeck.getCards().clear();
 		}
-	}
-
-	private void transferCard(Card fromCard, Deck toDeck) {
-		Deck fromDeck = new Deck();
-		fromDeck.addCard(fromCard);
-		transferCards(fromDeck, toDeck, fromDeck);
-		
 	}
 
 	public void dealGame(Deck deck) {
@@ -104,23 +91,23 @@ public class GameService {
 		return gameBoard;
 	}
 
-	public void moveCard(Deck fromDeck, Deck toDeck, int numberOfCardsToMove) {
-		Deck fromCards = getFromCards(fromDeck,numberOfCardsToMove);
-		Card fromCard =  getFromCard(fromCards, numberOfCardsToMove);
-		if(ruleService.spotIsEmpty(toDeck)){
-			
-		}
-		Card toCard = toDeck.getTopCard();
-		if(ruleService.isOppositeColor(fromCard, toCard)){
-			if(ruleService.isOneBelow(fromCard, toCard)){
-				toDeck.addCard(toCard);
-				transferCards(fromCards, toDeck, fromDeck);
-				
-			}
+	public void moveCard(GameSpot fromSpot, GameSpot toSpot, int numberOfCardsToMove) {
+		Deck fromDeck = getDeck(fromSpot);
+		Deck toDeck = getDeck(toSpot);
+		if(ruleService.isGoingToResolutionPile(toSpot)){
+			movingToResPile(fromSpot, toSpot, numberOfCardsToMove);
 		}else{
-			toDeck.addCard(toCard);
-			fromDeck.getCards().addAll(fromCards.getCards());
-				
+			Deck fromCards = getFromCards(fromDeck,numberOfCardsToMove);
+			Card toCard = toDeck.showTopCard();
+			Card fromCard =  getFromCard(fromCards, numberOfCardsToMove);
+			if(ruleService.isOppositeColor(fromCard, toCard)){
+				if(ruleService.isOneBelow(fromCard, toCard)){
+					transferCards(fromCards, toDeck, fromDeck);
+					
+				}
+			}else{
+				fromDeck.getCards().addAll(fromCards.getCards());
+			}		
 		}Card card = fromDeck.getTopCard();
 		if(!card.isFaceUp()){
 			card.turnFaceUp();
@@ -128,8 +115,28 @@ public class GameService {
 		
 	}
 
-	private Card getFromCard(Deck fromCards, int numberOfCardsToMove) {
-		return fromCards.getCards().get(0);
+	private void movingToResPile(GameSpot fromSpot, GameSpot toSpot,
+			int numberOfCardsToMove) {
+		Deck fromDeck = getDeck(fromSpot);
+		Card fromCard = fromDeck.showTopCard();
+		switch(getDeck(fromSpot).getTopCard().getSuit()){
+		case HEART: toSpot = GameSpot.RESOLUTION_HEARTS;
+			break;
+		case DIAMOND: toSpot = GameSpot.RESOLUTION_DIAMONDS;
+			break;
+		case SPADE: toSpot = GameSpot.RESOLUTION_SPADE;
+			break;
+		case CLUB: toSpot = GameSpot.RESOLUTION_CLUB;
+			break;
+		}
+		Deck toDeck = getDeck(toSpot);
+		
+		if(fromCard.getRank() == Rank.ACE){
+			Deck fromCards = getFromCards(fromDeck, numberOfCardsToMove);
+			transferCards(fromCards, toDeck, fromDeck);
+		}
+			
+		
 	}
 
 	public void transferCards(Deck fromCards, Deck toDeck, Deck fromDeck) {
@@ -184,7 +191,7 @@ public class GameService {
 		}
 		
 		for(GameSpot gameSpot : gameSpots){
-			header.append(createHeaderTtitle(gameSpot));
+			header.append(createHeaderTitle(gameSpot));
 		}
 		
 		header.append("\n");
@@ -193,7 +200,27 @@ public class GameService {
 		return header.toString();
 	}
 	
-	private String createHeaderTtitle(GameSpot gameSpot){
+	private void transferCard(Card fromCard, Deck toDeck) {
+		Deck fromDeck = new Deck();
+		fromDeck.addCard(fromCard);
+		transferCards(fromDeck, toDeck, fromDeck);
+		
+	}
+
+	private void creatGameMap() {
+		for(GameSpot gameSpot : GameSpot.values()){
+			gameBoard.put(gameSpot, new Deck());
+		}
+	}
+	
+	private Card getFromCard(Deck fromCards, int numberOfCardsToMove) {
+		Card fromCard = fromCards.getCards().get(0);
+		Card copyCard = fromCards.copyCard(fromCard);
+		return copyCard;
+		
+	}
+
+	private String createHeaderTitle(GameSpot gameSpot){
 		
 		String headerType[] = gameSpot.name().split("_"); 
 		String displayName = null;

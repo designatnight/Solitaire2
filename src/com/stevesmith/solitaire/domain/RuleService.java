@@ -2,9 +2,18 @@ package com.stevesmith.solitaire.domain;
 
 import com.stevesmith.solitaire.datatype.Card;
 import com.stevesmith.solitaire.datatype.Deck;
+import com.stevesmith.solitaire.datatype.GameSpot;
+import com.stevesmith.solitaire.datatype.GameSpotType;
 import com.stevesmith.solitaire.datatype.Suit;
 
 public class RuleService {
+	
+	public boolean isGoingToResolutionPile(GameSpot toSpot){
+		if(toSpot.getGameSpotType() == GameSpotType.RESOLUTION){
+			return true;
+		}
+		return false;
+	}
 
 	public boolean isRed(Card card) {
 		Suit suit = card.getSuit();

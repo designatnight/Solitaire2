@@ -43,6 +43,18 @@ public class Deck {
 		return card;
 	}
 	
+	public Card showTopCard(){
+		Card card = cards.get(getSize() - 1);
+		Card copyCard = copyCard(card);
+		
+		return copyCard;
+	}
+	
+	public Card copyCard(Card card){
+		Card cardCopy = new Card(card.getRank(), card.getSuit(), card.isFaceUp());
+		return cardCopy;
+	}
+	
 	@Override
 	public String toString(){
 		String retval = "";

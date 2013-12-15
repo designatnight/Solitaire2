@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import com.stevesmith.solitaire.datatype.Card;
+import com.stevesmith.solitaire.datatype.Deck;
 import com.stevesmith.solitaire.datatype.Rank;
 import com.stevesmith.solitaire.datatype.Suit;
 import com.stevesmith.solitaire.domain.RuleService;
@@ -19,6 +20,11 @@ public class RuleServiceTest {
 	Card threeClub = new Card(Rank.THREE, Suit.CLUB, true);
 	
 	RuleService ruleService = new RuleService();
+	
+	@Test
+	public void isGoingToResolutionPileTest(){
+		
+	}
 	
 	@Test
 	public void colorTest(){

@@ -24,6 +24,16 @@ public class GameServiceTest {
 	private Map<GameSpot, Deck> gameBoard = new HashMap<GameSpot, Deck>();
 	private GameService gameService = new GameService(new RuleService(), gameBoard);
 	
+	@Test
+	public void aceToEmptyResPileTest(){
+		gameService.newGame();
+		gameService.moveCard(GameSpot.REGULAR_6, GameSpot.RESOLUTION_CLUB, 1);
+		Deck resolutionDeck = gameService.getDeck(GameSpot.RESOLUTION_CLUB);
+		assertEquals(1, resolutionDeck.getSize());
+		
+		
+	}
+	
 	
 	@Test
 	public void canResetDrawDeck(){
@@ -44,10 +54,10 @@ public class GameServiceTest {
 		gameService.getDeck(GameSpot.REGULAR_7).getCards().add(new Card(Rank.JACK, Suit.CLUB,true));
 		assertEquals(1, gameService.getDeck(GameSpot.REGULAR_1).getSize());
 		assertEquals(8,gameService.getDeck(GameSpot.REGULAR_7).getSize());
-		gameService.moveCard(gameService.getDeck(GameSpot.REGULAR_7), gameService.getDeck(GameSpot.REGULAR_1), 2);
+		gameService.moveCard(GameSpot.REGULAR_7, GameSpot.REGULAR_1, 2);
 		assertEquals(1, gameService.getDeck(GameSpot.REGULAR_1).getSize());
 		assertEquals(8,gameService.getDeck(GameSpot.REGULAR_7).getSize());
-		gameService.moveCard(gameService.getDeck(GameSpot.REGULAR_7), gameService.getDeck(GameSpot.REGULAR_3), 2);
+		gameService.moveCard(GameSpot.REGULAR_7, GameSpot.REGULAR_3, 2);
 		assertEquals(5, gameService.getDeck(GameSpot.REGULAR_3).getSize());
 		assertEquals(6, gameService.getDeck(GameSpot.REGULAR_7).getSize());
 	}
@@ -56,7 +66,7 @@ public class GameServiceTest {
 	public void autoTurnUpTest(){
 		gameService.newGame();
 		this.gameBoard = gameService.getGameMap();
-		gameService.moveCard(gameBoard.get(GameSpot.REGULAR_7), gameBoard.get(GameSpot.REGULAR_1), 1);
+		gameService.moveCard(GameSpot.REGULAR_7, GameSpot.REGULAR_1, 1);
 		assertTrue(gameService.getDeck(GameSpot.REGULAR_7).getTopCard().isFaceUp());
 	}
 	
@@ -64,7 +74,7 @@ public class GameServiceTest {
 	public void canMoveACard(){
 		gameService.newGame();
 		this.gameBoard = gameService.getGameMap();
-		gameService.moveCard(gameBoard.get(GameSpot.REGULAR_7),gameBoard.get(GameSpot.REGULAR_3), 1);
+		gameService.moveCard(GameSpot.REGULAR_7,GameSpot.REGULAR_3, 1);
 		assertEquals(4, gameBoard.get(GameSpot.REGULAR_3).getSize());
 		assertEquals(6, gameBoard.get(GameSpot.REGULAR_7).getSize());
 	}
