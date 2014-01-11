@@ -44,7 +44,7 @@ public class GameService {
 			drawCard.turnFaceUp();
 			transferCard(drawCard, discardDeck);
 			drawDeck.removeCard(drawCard);
-		}catch(ArrayIndexOutOfBoundsException e){
+		}catch(NullPointerException e){
 			for(Card card : discardDeck.getCards()){
 				card.turnFaceDown();
 				drawDeck.getCards().add(0, card);
@@ -98,21 +98,31 @@ public class GameService {
 			movingToResPile(fromSpot, toSpot, numberOfCardsToMove);
 		}else{
 			Deck fromCards = getFromCards(fromDeck,numberOfCardsToMove);
-			Card toCard = toDeck.showTopCard();
 			Card fromCard =  getFromCard(fromCards, numberOfCardsToMove);
-			if(ruleService.isOppositeColor(fromCard, toCard)){
-				if(ruleService.isOneBelow(fromCard, toCard)){
+			if(ruleService.spotIsEmpty(toDeck)){
+				if(fromCard.getRank() == Rank.KING){
 					transferCards(fromCards, toDeck, fromDeck);
-					
 				}
 			}else{
-				fromDeck.getCards().addAll(fromCards.getCards());
-			}		
-		}Card card = fromDeck.getTopCard();
-		if(!card.isFaceUp()){
-			card.turnFaceUp();
-		}fromDeck.addCard(card);
-		
+				Card toCard = toDeck.showTopCard();
+				if(ruleService.isOppositeColor(fromCard, toCard)){
+					if(ruleService.isOneBelow(fromCard, toCard)){
+						transferCards(fromCards, toDeck, fromDeck);
+						
+					}
+				}else{
+					fromDeck.getCards().addAll(fromCards.getCards());
+				}
+			}	
+		}
+		Card card = fromDeck.getTopCard();
+		try{
+			if(!card.isFaceUp()){
+				card.turnFaceUp();
+			}fromDeck.addCard(card);
+		}catch(NullPointerException e){
+			
+		}
 	}
 
 	private void movingToResPile(GameSpot fromSpot, GameSpot toSpot,
@@ -131,11 +141,18 @@ public class GameService {
 		}
 		Deck toDeck = getDeck(toSpot);
 		
-		if(fromCard.getRank() == Rank.ACE){
-			Deck fromCards = getFromCards(fromDeck, numberOfCardsToMove);
-			transferCards(fromCards, toDeck, fromDeck);
+		if(ruleService.spotIsEmpty(toDeck))	{
+			if(fromCard.getRank() == Rank.ACE){
+				Deck fromCards = new Deck().addCard(fromCard);
+				transferCards(fromCards, toDeck, fromDeck);
+			}
+		}else{
+			Card toCard = toDeck.showTopCard();
+			if(ruleService.isOneAbove(fromCard, toCard)){
+				Deck fromCards = new Deck().addCard(fromCard);
+				transferCards(fromCards, toDeck, fromDeck);
+			}
 		}
-			
 		
 	}
 

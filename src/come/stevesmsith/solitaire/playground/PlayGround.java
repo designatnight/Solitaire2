@@ -10,6 +10,8 @@ import org.apache.commons.lang3.StringUtils;
 import com.stevesmith.solitaire.datatype.Card;
 import com.stevesmith.solitaire.datatype.Deck;
 import com.stevesmith.solitaire.datatype.GameSpot;
+import com.stevesmith.solitaire.datatype.Rank;
+import com.stevesmith.solitaire.datatype.Suit;
 import com.stevesmith.solitaire.domain.GameService;
 import com.stevesmith.solitaire.domain.RuleService;
 
@@ -19,53 +21,163 @@ public class PlayGround {
 	private static GameService gameService;
 	private static RuleService ruleService;
 	
-	private static final String TAB = "     ";
-	private static final String FACE_DOWN = "DWN";
+	
 	
 	public static void main(String [] args){
 		
 		ruleService = new RuleService();
 		gameService = new GameService(ruleService, new HashMap<GameSpot, Deck>());
-		gameService.newGame();
-		System.out.println(gameService);
-		gameService.moveCard(GameSpot.REGULAR_7, GameSpot.REGULAR_3, 1);
+		newGame();
+		gameService.moveCard(GameSpot.REGULAR_3, GameSpot.REGULAR_2, 1);
 		gameService.drawCard();
-		gameService.drawCard();
-		gameService.drawCard();
-		gameService.drawCard();
-		gameService.drawCard();
-		gameService.moveCard(GameSpot.DISCARD, GameSpot.REGULAR_4, 1);
-		gameService.drawCard();
-		gameService.drawCard();
-		gameService.drawCard();
-		gameService.drawCard();
+		gameService.moveCard(GameSpot.REGULAR_2, GameSpot.REGULAR_4, 2);
+		gameService.moveCard(GameSpot.REGULAR_5, GameSpot.REGULAR_1, 1);
+		gameService.drawCard();	gameService.drawCard();
 		gameService.moveCard(GameSpot.DISCARD, GameSpot.REGULAR_5, 1);
+		gameService.moveCard(GameSpot.REGULAR_6, GameSpot.REGULAR_5, 1);
+		gameService.moveCard(GameSpot.REGULAR_6, GameSpot.RESOLUTION_DIAMONDS, 1);
+		gameService.drawCard(); gameService.drawCard();
+		gameService.moveCard(GameSpot.DISCARD, GameSpot.REGULAR_7, 1);
+		gameService.drawCard(); gameService.drawCard(); gameService.drawCard();
+		gameService.moveCard(GameSpot.DISCARD, GameSpot.REGULAR_5, 1);
+		gameService.drawCard();gameService.drawCard();gameService.drawCard();gameService.drawCard();
+		gameService.drawCard();gameService.drawCard();
+		gameService.moveCard(GameSpot.DISCARD, GameSpot.REGULAR_3, 1);
+		gameService.moveCard(GameSpot.REGULAR_7, GameSpot.REGULAR_3, 2);
+		gameService.drawCard();gameService.drawCard();
+		gameService.moveCard(GameSpot.DISCARD, GameSpot.REGULAR_4, 1);
+		gameService.moveCard(GameSpot.REGULAR_1, GameSpot.REGULAR_4, 2);
+		gameService.moveCard(GameSpot.REGULAR_5, GameSpot.REGULAR_3, 4);
+		gameService.moveCard(GameSpot.REGULAR_5, GameSpot.RESOLUTION_CLUB, 1);
+		gameService.moveCard(GameSpot.REGULAR_7, GameSpot.REGULAR_1, 1);
 		gameService.drawCard();
+		gameService.moveCard(GameSpot.DISCARD, GameSpot.REGULAR_2, 1);
+		gameService.moveCard(GameSpot.REGULAR_4, GameSpot.REGULAR_2, 6);
+		gameService.moveCard(GameSpot.REGULAR_4, GameSpot.REGULAR_2, 1);
+		gameService.moveCard(GameSpot.REGULAR_3, GameSpot.REGULAR_4, 8);
+		gameService.moveCard(GameSpot.REGULAR_3, GameSpot.REGULAR_7, 1);
+		gameService.moveCard(GameSpot.DISCARD, GameSpot.REGULAR_7, 1);
+		gameService.moveCard(GameSpot.REGULAR_5, GameSpot.REGULAR_7, 1);
 		gameService.drawCard();
+		gameService.moveCard(GameSpot.DISCARD, GameSpot.RESOLUTION_DIAMONDS, 1);
 		gameService.drawCard();
-		gameService.drawCard();
-		gameService.moveCard(GameSpot.DISCARD, GameSpot.REGULAR_1, 1);
+		gameService.moveCard(GameSpot.DISCARD, GameSpot.REGULAR_2, 1);
+		gameService.moveCard(GameSpot.REGULAR_6, GameSpot.REGULAR_2, 1);
+		gameService.drawCard();gameService.drawCard();gameService.drawCard();
+		gameService.moveCard(GameSpot.DISCARD, GameSpot.RESOLUTION_SPADE, 1);
+		gameService.drawCard();gameService.drawCard();gameService.drawCard();
 		gameService.drawCard();
 		gameService.moveCard(GameSpot.DISCARD, GameSpot.REGULAR_3, 1);
 		gameService.drawCard();
+		gameService.moveCard(GameSpot.DISCARD, GameSpot.RESOLUTION_CLUB, 1);
 		gameService.drawCard();
-		gameService.drawCard();
-		gameService.drawCard();
-		gameService.drawCard();
+		gameService.moveCard(GameSpot.DISCARD, GameSpot.REGULAR_1, 1);
+		gameService.moveCard(GameSpot.REGULAR_4, GameSpot.REGULAR_1, 9);
+		gameService.moveCard(GameSpot.REGULAR_1, GameSpot.RESOLUTION_DIAMONDS, 1);
+		gameService.moveCard(GameSpot.REGULAR_5, GameSpot.REGULAR_1, 1);
+		gameService.moveCard(GameSpot.REGULAR_4, GameSpot.REGULAR_3, 1);
+		gameService.drawCard();gameService.drawCard();
+		gameService.moveCard(GameSpot.DISCARD, GameSpot.REGULAR_4, 1);
+		gameService.moveCard(GameSpot.DISCARD, GameSpot.REGULAR_4, 1);
+		gameService.drawCard();gameService.drawCard();
+		gameService.moveCard(GameSpot.DISCARD, GameSpot.REGULAR_5, 1);
+		gameService.drawCard();gameService.drawCard();gameService.drawCard();
+		gameService.moveCard(GameSpot.DISCARD, GameSpot.REGULAR_3, 1);
+		gameService.drawCard();gameService.drawCard();gameService.drawCard();
 		gameService.moveCard(GameSpot.DISCARD, GameSpot.REGULAR_4, 1);
 		gameService.drawCard();
-		gameService.moveCard(GameSpot.DISCARD, GameSpot.REGULAR_2, 1);
+		gameService.moveCard(GameSpot.DISCARD, GameSpot.REGULAR_3, 1);
+		gameService.moveCard(GameSpot.REGULAR_7, GameSpot.REGULAR_3, 4);
+		gameService.moveCard(GameSpot.REGULAR_7, GameSpot.RESOLUTION_SPADE, 1);
+		gameService.moveCard(GameSpot.REGULAR_7, GameSpot.REGULAR_6, 1);
+		gameService.moveCard(GameSpot.REGULAR_7, GameSpot.REGULAR_3, 1);
+		gameService.drawCard();gameService.drawCard();gameService.drawCard();
+		gameService.moveCard(GameSpot.DISCARD, GameSpot.REGULAR_4, 1);
+		gameService.moveCard(GameSpot.REGULAR_6, GameSpot.REGULAR_4, 2);
+		gameService.moveCard(GameSpot.REGULAR_6, GameSpot.RESOLUTION_HEARTS, 1);
 		gameService.drawCard();
+		gameService.moveCard(GameSpot.DISCARD, GameSpot.RESOLUTION_SPADE, 1);
 		gameService.drawCard();
+		gameService.moveCard(GameSpot.DISCARD, GameSpot.RESOLUTION_HEARTS, 1);
 		gameService.drawCard();
-		gameService.moveCard(GameSpot.DISCARD, GameSpot.REGULAR_5, 1);
-		gameService.drawCard();
-		gameService.drawCard();
-		gameService.drawCard();
+		gameService.moveCard(GameSpot.DISCARD, GameSpot.REGULAR_4, 1);
+		gameService.moveCard(GameSpot.DISCARD, GameSpot.REGULAR_4, 1);
+		//I won!
+		
+		HashMap<Integer, String> displayMap = createDisplayMap();
+		printOutDisplaytMap(displayMap);
+		
+		
 		
 		
 		
 		//printOut();
+	}
+	
+
+	public static void newGame(){
+		Deck deck = loadTestDeck();
+		gameService.dealGame(deck);
+		gameService.getGameMap().put(GameSpot.DRAW, deck);
+		
+	}
+	
+	private static Deck loadTestDeck(){
+		Deck deck = new Deck();
+		deck.addCard(new Card(Rank.TEN, Suit.CLUB, false));
+		deck.addCard(new Card(Rank.JACK, Suit.SPADE, false));
+		deck.addCard(new Card(Rank.ACE, Suit.SPADE, false));
+		deck.addCard(new Card(Rank.SEVEN, Suit.SPADE, false));
+		deck.addCard(new Card(Rank.FOUR, Suit.SPADE, false));
+		deck.addCard(new Card(Rank.THREE, Suit.CLUB, false));
+		deck.addCard(new Card(Rank.TWO, Suit.DIAMOND, false));
+		deck.addCard(new Card(Rank.JACK, Suit.CLUB, false));
+		deck.addCard(new Card(Rank.SEVEN, Suit.CLUB, false));
+		deck.addCard(new Card(Rank.SEVEN, Suit.HEART, false));
+		deck.addCard(new Card(Rank.NINE, Suit.HEART, false));
+		deck.addCard(new Card(Rank.JACK, Suit.HEART, false));
+		deck.addCard(new Card(Rank.THREE, Suit.SPADE, false));
+		deck.addCard(new Card(Rank.TEN, Suit.DIAMOND, false));
+		deck.addCard(new Card(Rank.KING, Suit.CLUB, false));
+		deck.addCard(new Card(Rank.SIX, Suit.DIAMOND, false));
+		deck.addCard(new Card(Rank.THREE, Suit.DIAMOND, false));
+		deck.addCard(new Card(Rank.KING, Suit.SPADE, false));
+		deck.addCard(new Card(Rank.QUEEN, Suit.DIAMOND, false));
+		deck.addCard(new Card(Rank.SEVEN, Suit.DIAMOND, false));
+		deck.addCard(new Card(Rank.QUEEN, Suit.CLUB, false));
+		deck.addCard(new Card(Rank.FIVE, Suit.HEART, false));
+		deck.addCard(new Card(Rank.TWO, Suit.CLUB, false));
+		deck.addCard(new Card(Rank.KING, Suit.HEART, false));
+		deck.addCard(new Card(Rank.EIGHT, Suit.SPADE, false));
+		deck.addCard(new Card(Rank.KING, Suit.DIAMOND, false));
+		deck.addCard(new Card(Rank.FOUR, Suit.CLUB, false));
+		deck.addCard(new Card(Rank.NINE, Suit.DIAMOND, false));
+		deck.addCard(new Card(Rank.ACE, Suit.DIAMOND, false));
+		deck.addCard(new Card(Rank.FIVE, Suit.SPADE, false));
+		deck.addCard(new Card(Rank.TWO, Suit.SPADE, false));
+		deck.addCard(new Card(Rank.TWO, Suit.HEART, false));
+		deck.addCard(new Card(Rank.SIX, Suit.CLUB, false));
+		deck.addCard(new Card(Rank.TEN, Suit.HEART, false));
+		deck.addCard(new Card(Rank.EIGHT, Suit.HEART, false));
+		deck.addCard(new Card(Rank.NINE, Suit.SPADE, false));
+		deck.addCard(new Card(Rank.ACE, Suit.CLUB, false));
+		deck.addCard(new Card(Rank.FOUR, Suit.HEART, false));
+		deck.addCard(new Card(Rank.EIGHT, Suit.DIAMOND, false));
+		deck.addCard(new Card(Rank.FIVE, Suit.DIAMOND, false));
+		deck.addCard(new Card(Rank.ACE, Suit.HEART, false));
+		deck.addCard(new Card(Rank.SIX, Suit.SPADE, false));
+		deck.addCard(new Card(Rank.JACK, Suit.DIAMOND, false));
+		deck.addCard(new Card(Rank.TEN, Suit.SPADE, false));
+		deck.addCard(new Card(Rank.NINE, Suit.CLUB, false));
+		deck.addCard(new Card(Rank.FOUR, Suit.DIAMOND, false));
+		deck.addCard(new Card(Rank.FIVE, Suit.CLUB, false));
+		deck.addCard(new Card(Rank.THREE, Suit.HEART, false));
+		deck.addCard(new Card(Rank.QUEEN, Suit.SPADE, false));
+		deck.addCard(new Card(Rank.EIGHT, Suit.CLUB, false));
+		deck.addCard(new Card(Rank.QUEEN, Suit.HEART, false));
+		deck.addCard(new Card(Rank.SIX, Suit.HEART, false));
+		return deck;
+
 	}
 	
 	private static void printOut(){

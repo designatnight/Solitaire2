@@ -13,9 +13,9 @@ public class Deck {
 		return this;		
 	}
 	
-	public Deck shuffle(Deck deck){
-		Collections.shuffle(deck.getCards());
-		return deck;
+	public Deck shuffle(){
+		Collections.shuffle(this.getCards());
+		return this;
 	}
 
 	public List<Card> getCards(){
@@ -38,9 +38,13 @@ public class Deck {
 	}
 
 	public Card getTopCard() {
-		Card card = cards.get(getSize() - 1);
-		cards.remove(card);
-		return card;
+		try{
+			Card card = cards.get(getSize() - 1);
+			cards.remove(card);
+			return card;
+		}catch(ArrayIndexOutOfBoundsException e){
+			return null;
+		}
 	}
 	
 	public Card showTopCard(){

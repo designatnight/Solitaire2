@@ -13,6 +13,8 @@ import org.junit.Test;
 
 
 
+import org.junit.runners.Suite;
+
 import com.stevesmith.solitaire.datatype.Card;
 import com.stevesmith.solitaire.datatype.Deck;
 import com.stevesmith.solitaire.datatype.GameSpot;
@@ -23,6 +25,39 @@ public class GameServiceTest {
 	
 	private Map<GameSpot, Deck> gameBoard = new HashMap<GameSpot, Deck>();
 	private GameService gameService = new GameService(new RuleService(), gameBoard);
+	
+	@Test
+	public void kingToEmptySpot(){
+		gameService.newGame();
+		gameService.getDeck(GameSpot.REGULAR_1).getCards().clear();
+		
+		gameService.moveCard(GameSpot.REGULAR_3, GameSpot.REGULAR_1, 1);
+		Deck regular1 = gameService.getDeck(GameSpot.REGULAR_1);
+		assertEquals(1, regular1.getSize());
+	}
+	
+	@Test
+	public void threeToResPileTest(){
+		gameService.newGame();
+		gameService.moveCard(GameSpot.REGULAR_6, GameSpot.RESOLUTION_CLUB, 1);
+		gameService.getDeck(GameSpot.REGULAR_1).addCard(new Card(Rank.TWO, Suit.CLUB, true));
+		gameService.moveCard(GameSpot.REGULAR_1, GameSpot.RESOLUTION_CLUB, 1);
+		gameService.getDeck(GameSpot.REGULAR_1).addCard(new Card(Rank.THREE, Suit.CLUB,true));
+		gameService.moveCard(GameSpot.REGULAR_1, GameSpot.RESOLUTION_CLUB, 1);
+		Deck resolutionDeck = gameService.getDeck(GameSpot.RESOLUTION_CLUB);
+		assertEquals(3, resolutionDeck.getSize());
+		
+	}
+	
+	@Test
+	public void twoToResPileTest(){
+		gameService.newGame();
+		gameService.moveCard(GameSpot.REGULAR_6, GameSpot.RESOLUTION_CLUB, 1);
+		gameService.getDeck(GameSpot.REGULAR_1).addCard(new Card(Rank.TWO, Suit.CLUB, true));
+		gameService.moveCard(GameSpot.REGULAR_1, GameSpot.RESOLUTION_CLUB, 1);
+		Deck resolutionDeck = gameService.getDeck(GameSpot.RESOLUTION_CLUB);
+		assertEquals(2, resolutionDeck.getSize());
+	}
 	
 	@Test
 	public void aceToEmptyResPileTest(){
